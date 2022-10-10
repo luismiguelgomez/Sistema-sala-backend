@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import javax.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "user")
@@ -35,27 +37,31 @@ public class User extends BaseEntity{
 
     //Utilizamos la anotacion de JsonProperty para que en este caso solo se pueda escribir y no leer
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
+    @Size(min = 8)
     @Getter @Setter
     private String password;
 
-    @Column(name = "cedula")
+
+    @Column(name = "cedula", unique = true, nullable = false, length = 10)
+    @Size(min = 9, max = 10)
     @Getter @Setter
     private String cedula;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     @Getter @Setter
     private String nombre;
 
-    @Column(name = "apellido")
+    @Column(name = "apellido", nullable = false)
     @Getter @Setter
     private String apellido;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @Getter @Setter
     private String email;
 
-    @Column(name = "telefono")
+    @Column(name = "telefono", unique = true)
+    @Size(min = 7, max = 10)
     @Getter @Setter
     private String telefono;
 

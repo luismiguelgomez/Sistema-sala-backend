@@ -20,7 +20,7 @@ public class Role extends BaseEntity{
     @Getter @Setter
     private long id;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", unique = true, nullable = false)
     @Getter
     @Setter
     private String nombre;

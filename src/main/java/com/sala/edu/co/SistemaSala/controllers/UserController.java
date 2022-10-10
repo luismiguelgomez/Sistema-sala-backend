@@ -4,6 +4,8 @@ import com.sala.edu.co.SistemaSala.models.User;
 import com.sala.edu.co.SistemaSala.services.UserService;
 import com.sala.edu.co.SistemaSala.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -49,9 +51,14 @@ public class UserController {
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:8080")
-    void register(@RequestBody User user) {
+    ResponseEntity<String> register(@RequestBody User user) {
         // TODO: Registrar en la base de datos al usuario
-        userService.register(user);
+        try {
+            userService.register(user);
+        }catch (Exception e) {
+            return new ResponseEntity<>("Error al registar el usuario " + e.getMessage() , HttpStatus.PRECONDITION_FAILED);
+        }
+        return new ResponseEntity<>("Usuario registrado Exitosamente" , HttpStatus.OK);
     }
 
     /**
@@ -79,15 +86,22 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:8080")
-    Map<String, Object> login(@RequestBody User dtoUser){
-        User user = userService.login(dtoUser);
-
+    ResponseEntity<Map<String, Object>> login(@RequestBody User dtoUser) throws Exception {
+        User user = new User();
         Map<String, Object> result = new HashMap<>();
+       try {
+           user = userService.login(dtoUser);
+       } catch (Exception e) {
+           result.put("token", "");
+           result.put("error", "Error al registar el usuario"+e.getMessage());
+           return ResponseEntity.ok(result);
+       }
+
         if (user != null) {
             String token = jwtUtil.create(String.valueOf(user.getId()), user.getEmail());
             result.put("token", token);
             result.put("user", user);
         }
-        return result;
+        return ResponseEntity.ok(result);
     }
 }
