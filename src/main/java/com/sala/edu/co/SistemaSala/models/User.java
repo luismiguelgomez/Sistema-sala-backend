@@ -39,6 +39,10 @@ public class User extends BaseEntity{
     @Getter @Setter
     private String password;
 
+    @Column(name = "cedula")
+    @Getter @Setter
+    private String cedula;
+
     @Column(name = "nombre")
     @Getter @Setter
     private String nombre;
