@@ -14,13 +14,24 @@ import java.util.Date;
 @AllArgsConstructor
 public class User extends BaseEntity{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", updatable = false, nullable = false)
+    @Getter @Setter
+    private long id;
 
     //JsonProperty sirve para ofrecerle el acceso, en este caso NO se puede escribir
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="role_id")
-    @Getter @Setter
+    @ManyToOne
+    @JoinColumn(name="role_id", nullable = false)
+    @Getter
+    @Setter
     private Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "estado_usuario_id", nullable = false)
+    @Getter
+    @Setter
+    private EstadoUsuario estadoUsuarios;
 
     //Utilizamos la anotacion de JsonProperty para que en este caso solo se pueda escribir y no leer
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

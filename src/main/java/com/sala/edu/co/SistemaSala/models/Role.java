@@ -14,16 +14,15 @@ import java.util.Set;
 @AllArgsConstructor
 public class Role extends BaseEntity{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id", updatable = false, nullable = false)
+    @Getter @Setter
+    private long id;
+
     @Column(name = "nombre")
     @Getter
     @Setter
     private String nombre;
-
-    //Eager hace que traiga todos los contenidos y no solo la referencia
-    @OneToMany(cascade = CascadeType.ALL
-            , fetch = FetchType.EAGER, mappedBy = "role")
-    @Getter
-    @Setter
-    private Set<Permiso> permisos;
 
 }
