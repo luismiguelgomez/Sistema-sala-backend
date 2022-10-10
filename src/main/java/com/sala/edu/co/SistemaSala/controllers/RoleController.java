@@ -18,6 +18,7 @@ public class RoleController {
      * @return todos los roles
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:8080")
     List<Role> getAll() {
         return roleService.getAll();
     }
@@ -28,6 +29,7 @@ public class RoleController {
      * @return un rol segun su id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:8080")
     Role get(@PathVariable long id) {
         return roleService.get(id);
     }
@@ -39,6 +41,7 @@ public class RoleController {
      * @return el rol creado
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:8080")
     Role register(@RequestBody Role role) {
         // TODO: Registrar en la base de datos al usuario
         return roleService.register(role);
@@ -50,12 +53,14 @@ public class RoleController {
      * @return el usuario cambiado
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @CrossOrigin(origins = "http://localhost:8080")
     Role update(@RequestBody Role role) {
         // TODO: Actualizar en la base de datos al usuario
         return roleService.update(role);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @CrossOrigin(origins = "http://localhost:8080")
     void delete(@PathVariable long id) {
         // TODO: eliminar en la base de datos al usuario
         roleService.delete(id);

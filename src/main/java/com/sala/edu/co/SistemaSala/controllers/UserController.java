@@ -25,6 +25,7 @@ public class UserController {
      * @return todos los usuarios
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:8080")
     List<User> getAll() {
         return userService.getAll();
     }
@@ -35,6 +36,7 @@ public class UserController {
      * @return un usuario segun su id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:8080")
     User get(@PathVariable long id) {
         return userService.get(id);
     }
@@ -46,6 +48,7 @@ public class UserController {
      * @return el usuario creado
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:8080")
     void register(@RequestBody User user) {
         // TODO: Registrar en la base de datos al usuario
         userService.register(user);
@@ -57,6 +60,7 @@ public class UserController {
      * @return el usuario cambiado
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @CrossOrigin(origins = "http://localhost:8080")
     User update(@RequestBody User user) {
         // TODO: Actualizar en la base de datos al usuario
         return userService.update(user);
@@ -67,12 +71,14 @@ public class UserController {
      * @param id del usuario a eliminar
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @CrossOrigin(origins = "http://localhost:8080")
     void delete(@PathVariable long id) {
         // TODO: eliminar en la base de datos al usuario
         userService.delete(id);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:8080")
     Map<String, Object> login(@RequestBody User dtoUser){
         User user = userService.login(dtoUser);
 
