@@ -59,4 +59,16 @@ public class User extends BaseEntity{
     @Getter @Setter
     private Date fechaNac;
 
+    @Column(name = "edad")
+    @Getter @Setter
+    private String edad;
+
+    @Column(name = "sexo")
+    @Getter @Setter
+    private String sexo;
+
+    @Column(name = "direccion")
+    @Getter @Setter
+    private String direccion;
+
 }
