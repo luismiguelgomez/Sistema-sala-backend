@@ -19,6 +19,23 @@ public class UserDaoImp implements UserDao {
     @PersistenceContext
     EntityManager entityManager;
 
+    @Override
+    public User getUserByCC(String cedulaParam) throws Exception {
+        String hqlObtenerTodosUsuarios = "FROM User as u WHERE u.cedula = :cedulaParam";
+        User user= new User();
+        try {
+            List<User> result = entityManager.createQuery(hqlObtenerTodosUsuarios.toString())
+                    .setParameter("cedulaParam", cedulaParam)
+                    .getResultList();
+            if (result.size() == 0) { return null; }
+            user = result.get(0);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return user;
+    }
+
     @Transactional
     @Override
     public List<User> getAll() {

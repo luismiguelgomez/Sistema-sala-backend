@@ -24,10 +24,15 @@ public class UserService {
         return userDao.get(id);
     }
 
-    public void register(User user) {
-        String hash = generarHash(user.getPassword());
-        user.setPassword(hash);
-        userDao.register(user);
+    public void register(User user) throws Exception {
+        try {
+            String hash = generarHash(user.getPassword());
+            user.setPassword(hash);
+            userDao.register(user);
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
     }
 
     public User update(@RequestBody User user) {
@@ -43,7 +48,18 @@ public class UserService {
         return argon2.hash(1, 1024 * 1, 1, password);
     }
 
-    public User login(User user) {
-        return userDao.login(user);
+    public User login(User user) throws Exception {
+        User usermodel;
+        try {
+            usermodel = userDao.getUserByCC(user.getCedula());
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+        if (usermodel == null){
+            return usermodel;
+        } else {
+            return userDao.login(user);
+        }
     }
 }

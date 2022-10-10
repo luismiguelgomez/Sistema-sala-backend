@@ -6,6 +6,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 public interface UserDao {
+
+    /**
+     * Se buscara por cedula
+     * @param cedula String de cedula
+     * @return
+     */
+    User getUserByCC(@RequestBody String cedula) throws Exception;
+
     /**
      * Trae una lista de tipo User
      * @return todos los usuarios

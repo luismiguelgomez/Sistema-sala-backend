@@ -25,7 +25,7 @@ public class EstadoUsuario extends BaseEntity{
     @Getter @Setter
     private Long customerId;
 
-    @Column(name = "estado")
+    @Column(name = "estado", nullable = false)
     @Getter
     @Setter
     private String estado;
