@@ -33,6 +33,24 @@ public class UserController {
     }
 
     /**
+     *
+     * @return todos los usuarios
+     */
+    @RequestMapping(value = "/buscar-email", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:8080")
+    ResponseEntity<User> getByEmail(@RequestParam String email) throws Exception {
+        User user = new User();
+        try {
+            user = userService.findByEmail(email);
+        } catch (Exception e) {
+            System.out.println("Error al obtener el usuario");
+        } finally {
+            return ResponseEntity.ok(user);
+        }
+
+    }
+
+    /**
      * Trae un solo usuario
      * @param id es el id del usuario a traer
      * @return un usuario segun su id

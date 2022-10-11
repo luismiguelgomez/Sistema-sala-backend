@@ -3,9 +3,13 @@ package com.sala.edu.co.SistemaSala.dao;
 import com.sala.edu.co.SistemaSala.models.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 public interface UserDao {
+
+    User getUserByEmail(@RequestParam String email) throws Exception;
 
     /**
      * Se buscara por cedula
