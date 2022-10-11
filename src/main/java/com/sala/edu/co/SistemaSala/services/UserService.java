@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 @Service
@@ -15,6 +17,17 @@ public class UserService {
 
     @Autowired
     UserDao userDao;
+
+    public User findByEmail(@RequestParam String email) throws Exception {
+        User user = new User();
+        try {
+            user = userDao.getUserByEmail(email);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+        return user;
+    }
 
     public List<User> getAll() {
         return userDao.getAll();

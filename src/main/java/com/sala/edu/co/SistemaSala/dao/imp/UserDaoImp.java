@@ -20,6 +20,22 @@ public class UserDaoImp implements UserDao {
     EntityManager entityManager;
 
     @Override
+    public User getUserByEmail(String email) throws Exception {
+        String hqlObtenerUsuarioXemail = "FROM User as u WHERE u.email = :email";
+        User user= new User();
+        try {
+            List<User> result = entityManager.createQuery(hqlObtenerUsuarioXemail.toString())
+                    .setParameter("email", email)
+                    .getResultList();
+            if (result.size() == 0) { return null; }
+            user = result.get(0);
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+        return user;
+    }
+
+    @Override
     public User getUserByCC(String cedulaParam) throws Exception {
         String hqlObtenerTodosUsuarios = "FROM User as u WHERE u.cedula = :cedulaParam";
         User user= new User();
