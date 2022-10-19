@@ -69,10 +69,18 @@ public class UserService {
             throw new Exception(e.getMessage());
         }
 
-        if (usermodel == null){
-            return usermodel;
+        if (usermodel != null){
+            String hash = generarHash(user.getPassword());
+            System.out.println("hash" + hash);
+            String userDb = usermodel.getPassword();
+            System.out.println("bd" + userDb);
+            if (userDb ==hash) {
+                return userDao.login(user);
+            }
         } else {
-            return userDao.login(user);
+            User usuario = new User();
+            return usuario;
         }
+        return usermodel;
     }
 }

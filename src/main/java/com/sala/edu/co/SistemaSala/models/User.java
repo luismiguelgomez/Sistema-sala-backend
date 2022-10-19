@@ -36,7 +36,7 @@ public class User extends BaseEntity{
     private EstadoUsuario estadoUsuarios;
 
     //Utilizamos la anotacion de JsonProperty para que en este caso solo se pueda escribir y no leer
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     @Size(min = 8)
     @Getter @Setter
