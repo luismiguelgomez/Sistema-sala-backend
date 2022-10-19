@@ -33,24 +33,6 @@ public class UserController {
     }
 
     /**
-     *
-     * @return todos los usuarios
-     */
-    @RequestMapping(value = "/buscar-email", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:8080")
-    ResponseEntity<User> getByEmail(@RequestParam String email) throws Exception {
-        User user = new User();
-        try {
-            user = userService.findByEmail(email);
-        } catch (Exception e) {
-            System.out.println("Error al obtener el usuario");
-        } finally {
-            return ResponseEntity.ok(user);
-        }
-
-    }
-
-    /**
      * Trae un solo usuario
      * @param id es el id del usuario a traer
      * @return un usuario segun su id
@@ -104,22 +86,27 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:8080")
-    ResponseEntity<Map<String, Object>> login(@RequestBody User dtoUser) throws Exception {
+    ResponseEntity<Map<String, Object>> login(@RequestParam String email, @RequestParam String password) throws Exception {
         User user = new User();
         Map<String, Object> result = new HashMap<>();
        try {
-           user = userService.login(dtoUser);
+
+           user = userService.findByEmail(email);
+           if (user!=null){
+               user = userService.login(user.getCedula(), password);
+           }
+
+
+           if (user != null) {
+               String token = jwtUtil.create(String.valueOf(user.getId()), user.getEmail());
+               result.put("token", token);
+               result.put("user", user);
+           }
        } catch (Exception e) {
            result.put("token", "");
            result.put("error", "Error al registar el usuario"+e.getMessage());
+       } finally {
            return ResponseEntity.ok(result);
        }
-
-        if (user != null) {
-            String token = jwtUtil.create(String.valueOf(user.getId()), user.getEmail());
-            result.put("token", token);
-            result.put("user", user);
-        }
-        return ResponseEntity.ok(result);
     }
 }

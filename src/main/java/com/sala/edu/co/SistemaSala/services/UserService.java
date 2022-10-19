@@ -58,28 +58,31 @@ public class UserService {
 
     private String generarHash(String password) {
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String hash = argon2.hash(4, 1024 * 1024, 8, password);
         return argon2.hash(1, 1024 * 1, 1, password);
     }
 
-    public User login(User user) throws Exception {
+
+    public User login(String cedula, String password) throws Exception {
         User usermodel;
         try {
-            usermodel = userDao.getUserByCC(user.getCedula());
+            usermodel = userDao.getUserByCC(cedula);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
 
         if (usermodel != null){
-            String hash = generarHash(user.getPassword());
-            System.out.println("hash" + hash);
-            String userDb = usermodel.getPassword();
-            System.out.println("bd" + userDb);
-            if (userDb ==hash) {
-                return userDao.login(user);
+            Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+           // String hash = argon2.hash(4, 1024 * 1024, 8, user.getPassword());
+            boolean success = argon2.verify(usermodel.getPassword(), password);
+
+            if (success) {
+                return userDao.login(usermodel);
+            } else {
+                usermodel = null;
             }
         } else {
-            User usuario = new User();
-            return usuario;
+            usermodel = null;
         }
         return usermodel;
     }
