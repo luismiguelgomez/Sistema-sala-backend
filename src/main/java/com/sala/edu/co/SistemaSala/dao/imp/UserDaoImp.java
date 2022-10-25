@@ -81,13 +81,6 @@ public class UserDaoImp implements UserDao {
 
     @Transactional
     @Override
-    public void delete(long id) {
-        User usuarioEliminar = get(id);
-        entityManager.remove(usuarioEliminar);
-    }
-
-    @Transactional
-    @Override
     public User login(User dto) {
         boolean isAuthenticated = false;
 
@@ -100,5 +93,21 @@ public class UserDaoImp implements UserDao {
 
         User user = result.get(0);
         return user;
+    }
+
+
+
+    @Override
+    public String perfilAEliminar(String emailToDelete) {
+        String hqlRolUser = "select Role.nombre " +
+                "from Role inner join User " +
+                "ON Role.role_id = User.role_id " +
+                "where User.email = :emailToDelete";
+        String result = String.valueOf(entityManager.createQuery(hqlRolUser.toString())
+                .setParameter("emailToDelete", emailToDelete)
+                .getResultList());
+        if (result == null) { return null; }
+
+        return result;
     }
 }

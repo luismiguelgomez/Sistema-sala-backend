@@ -47,11 +47,7 @@ public interface UserDao {
      */
     User update(@RequestBody User user);
 
-    /**
-     * Utilizaremos un parametro para eliminar a un usuario por si id
-     * @param id sera utilizado para eliminar usuario tipo long
-     */
-    void delete(@PathVariable long id) ;
-
     User login(User user);
+
+    String perfilAEliminar(String emailToDelete);
 }

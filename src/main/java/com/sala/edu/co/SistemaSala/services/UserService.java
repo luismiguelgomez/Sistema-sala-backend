@@ -1,6 +1,7 @@
 package com.sala.edu.co.SistemaSala.services;
 
 import com.sala.edu.co.SistemaSala.dao.UserDao;
+import com.sala.edu.co.SistemaSala.models.EstadoUsuario;
 import com.sala.edu.co.SistemaSala.models.User;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
@@ -52,8 +53,32 @@ public class UserService {
         return userDao.update(user);
     }
 
-    public void delete(@PathVariable long id) {
-        userDao.delete(id);
+    public User delete(String emailToDelete, User user) throws Exception {
+        User userToDelete = new User();
+        //Validation of user what modifity other user
+        boolean validacionPerfil = validacionPerfil(user);
+        if (validacionPerfil) {
+            String tipoPerfilAEliminar = userDao.perfilAEliminar(emailToDelete);
+            if (tipoPerfilAEliminar != null) {
+                try {
+                    userToDelete = userDao.getUserByEmail(emailToDelete);
+                    EstadoUsuario estadoUsuarios = userToDelete.getEstadoUsuarios();
+                    estadoUsuarios.setEstado("Eliminado");
+                    userToDelete.setEstadoUsuarios(estadoUsuarios);
+                    userDao.update(userToDelete);
+                } catch (Exception e) {
+                    throw new Exception(e.getMessage());
+                } finally {
+                    return userToDelete;
+                }
+            }
+        }
+       return userToDelete;
+    }
+
+    private boolean validacionPerfil(User user) {
+        boolean userIsOk = false;
+        return userIsOk = user.getRole().getNombre().equals("SuperAdmin") || user.getRole().getNombre().equals("Admin")?true:false;
     }
 
     private String generarHash(String password) {
