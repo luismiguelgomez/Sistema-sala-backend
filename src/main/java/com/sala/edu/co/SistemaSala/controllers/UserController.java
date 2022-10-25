@@ -75,13 +75,19 @@ public class UserController {
 
     /**
      * Eliminar un usuario
-     * @param id del usuario a eliminar
+     * @param email del usuario a eliminar
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @CrossOrigin(origins = "http://localhost:8080")
-    void delete(@PathVariable long id) {
-        // TODO: eliminar en la base de datos al usuario
-        userService.delete(id);
+    ResponseEntity<String> delete(@PathVariable String email, @RequestBody User user) throws Exception {
+        // TODO: eliminar en la base de datos al logicamene
+        try {
+            User usuarioToDelete = userService.delete(email, user);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al eliminar el usuario " + e.getMessage(), HttpStatus.PRECONDITION_FAILED);
+        }
+        return new ResponseEntity<>("Usuario eliminado Exitosamente" , HttpStatus.OK);
+
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
