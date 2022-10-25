@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "df25e4c8-2154-45b0-9ce9-cb34f36a8b81",
+		"name": "AULA VIRTUAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13205021"
+	},
+	"item": [
+		{
+			"name": "Obtener usuario especifico",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"role\": {\r\n        \"id\": 2,\r\n        \"nombre\": \"Admin\"\r\n    },\r\n    \"estadoUsuarios\": {\r\n        \"id\": 0,\r\n        \"estado\":\"OK\"\r\n    },\r\n    \"cedula\": \"0122304784\",\r\n    \"nombre\": \"Luis CARLOS\",\r\n    \"apellido\": \"OSPINA\",\r\n    \"email\": \"OSPINA@gmail.com\",\r\n    \"telefono\": \"3120056711\",\r\n    \"fechaNac\": \"2003-05-12T00:00:00.000+00:00\",\r\n    \"edad\": null,\r\n    \"sexo\": null,\r\n    \"password\":\"cali\",\r\n    \"direccion\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/login?email=caro@gmail.com&password=cali",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "caro@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "cali"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar usuario por correo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/buscar-email?email=Costa.1234@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"buscar-email"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "Costa.1234@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear rol",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\":\"Super\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rol/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rol",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EstadoUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"estado\":\"OK\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/estado-user-controller/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estado-user-controller",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los usuarios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
