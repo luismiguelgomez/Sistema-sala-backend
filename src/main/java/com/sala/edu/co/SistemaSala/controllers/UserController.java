@@ -27,7 +27,7 @@ public class UserController {
      * @return todos los usuarios
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     List<User> getAll() {
         return userService.getAll();
     }
@@ -38,7 +38,7 @@ public class UserController {
      * @return un usuario segun su id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     User get(@PathVariable long id) {
         return userService.get(id);
     }
@@ -50,7 +50,7 @@ public class UserController {
      * @return el usuario creado
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     ResponseEntity<String> register(@RequestBody User user) {
         // TODO: Registrar en la base de datos al usuario
         try {
@@ -67,7 +67,7 @@ public class UserController {
      * @return el usuario cambiado
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     User update(@RequestBody User user) {
         // TODO: Actualizar en la base de datos al usuario
         return userService.update(user);
@@ -78,7 +78,7 @@ public class UserController {
      * @param email del usuario a eliminar
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     ResponseEntity<String> delete(@PathVariable String email, @RequestBody User user) throws Exception {
         // TODO: eliminar en la base de datos al logicamene
         try {
@@ -91,7 +91,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     ResponseEntity<Map<String, Object>> login(@RequestParam String email, @RequestParam String password) throws Exception {
         User user = new User();
         Map<String, Object> result = new HashMap<>();
