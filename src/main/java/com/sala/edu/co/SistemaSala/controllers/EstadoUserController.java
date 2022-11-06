@@ -26,8 +26,9 @@ public class EstadoUserController {
      *
      * @return todos los EstadoUsuarios
      */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:8080")
+    //@RequestMapping(value = "/", method = RequestMethod.GET)
+    @CrossOrigin
+    @GetMapping
     List<EstadoUsuario> getAll() {
         return UserEstadoService.getAll();
     }
@@ -38,7 +39,7 @@ public class EstadoUserController {
      * @return un EstadoUsuario segun su id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     EstadoUsuario get(@PathVariable long id) {
         return UserEstadoService.get(id);
     }
@@ -50,7 +51,7 @@ public class EstadoUserController {
      * @return el EstadoUsuario creado
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     void register(@RequestBody EstadoUsuario user) {
         // TODO: Registrar en la base de datos al EstadoUsuario
         UserEstadoService.register(user);
@@ -62,7 +63,7 @@ public class EstadoUserController {
      * @return el EstadoUsuario cambiado
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     EstadoUsuario update(@RequestBody EstadoUsuario user) {
         // TODO: Actualizar en la base de datos al EstadoUsuario
         return UserEstadoService.update(user);
@@ -73,7 +74,7 @@ public class EstadoUserController {
      * @param id del EstadoUsuario a eliminar
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     void delete(@PathVariable long id) {
         // TODO: eliminar en la base de datos al EstadoUsuario
         UserEstadoService.delete(id);
