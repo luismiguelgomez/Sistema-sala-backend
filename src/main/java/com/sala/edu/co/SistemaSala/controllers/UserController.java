@@ -75,14 +75,14 @@ public class UserController {
 
     /**
      * Eliminar un usuario
-     * @param email del usuario a eliminar
+     * @param cedula del usuario a eliminar
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/cambiar-estado", method = RequestMethod.POST)
     @CrossOrigin
-    ResponseEntity<String> delete(@PathVariable String email, @RequestBody User user) throws Exception {
+    ResponseEntity<String> delete(@RequestParam String cedula, @RequestBody User user) throws Exception {
         // TODO: eliminar en la base de datos al logicamene
         try {
-            User usuarioToDelete = userService.delete(email, user);
+            User usuarioToDelete = userService.delete(cedula, user);
         } catch (Exception e) {
             return new ResponseEntity<>("Error al eliminar el usuario " + e.getMessage(), HttpStatus.PRECONDITION_FAILED);
         }

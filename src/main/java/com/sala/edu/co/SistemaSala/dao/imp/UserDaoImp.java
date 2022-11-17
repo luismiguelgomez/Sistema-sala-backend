@@ -98,13 +98,13 @@ public class UserDaoImp implements UserDao {
 
 
     @Override
-    public String perfilAEliminar(String emailToDelete) {
+    public String perfilAEliminar(String cedulaToDelete) {
         String hqlRolUser = "select Role.nombre " +
                 "from Role inner join User " +
                 "ON Role.role_id = User.role_id " +
-                "where User.email = :emailToDelete";
+                "where User.email = :cedulaToDelete";
         String result = String.valueOf(entityManager.createQuery(hqlRolUser.toString())
-                .setParameter("emailToDelete", emailToDelete)
+                .setParameter("cedulaToDelete", cedulaToDelete)
                 .getResultList());
         if (result == null) { return null; }
 
