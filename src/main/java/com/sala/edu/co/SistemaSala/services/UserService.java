@@ -58,19 +58,16 @@ public class UserService {
         //Validation of user what modifity other user
         boolean validacionPerfil = validacionPerfil(user);
         if (validacionPerfil) {
-            String tipoPerfilAEliminar = userDao.perfilAEliminar(emailToDelete);
-            if (tipoPerfilAEliminar != null) {
-                try {
-                    userToDelete = userDao.getUserByEmail(emailToDelete);
-                    EstadoUsuario estadoUsuarios = userToDelete.getEstadoUsuarios();
-                    estadoUsuarios.setEstado("Eliminado");
-                    userToDelete.setEstadoUsuarios(estadoUsuarios);
-                    userDao.update(userToDelete);
-                } catch (Exception e) {
-                    throw new Exception(e.getMessage());
-                } finally {
-                    return userToDelete;
-                }
+            try {
+                userToDelete = userDao.getUserByCC(emailToDelete);
+                EstadoUsuario estadoUsuarios = userToDelete.getEstadoUsuarios();
+                estadoUsuarios.setEstado(user.getEstadoUsuarios().getEstado());
+                userToDelete.setEstadoUsuarios(estadoUsuarios);
+                userDao.update(userToDelete);
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            } finally {
+                return userToDelete;
             }
         }
        return userToDelete;

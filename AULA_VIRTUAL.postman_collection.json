@@ -176,17 +176,52 @@
 			"response": []
 		},
 		{
-			"name": "Obtener todos los usuarios",
+			"name": "CAMBIAR ESTADO A USUARIO",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"role\": {\r\n        \"id\": 2,\r\n        \"nombre\": \"Admin\"\r\n    },\r\n    \"estadoUsuarios\":  {\r\n        \"customerId\": 4,\r\n        \"estado\": \"INACTIVO\"\r\n    },\r\n    \"cedula\": \"5022304784\",\r\n    \"nombre\": \"Luis Migue\",\r\n    \"apellido\": \"cayetano\",\r\n    \"email\": \"cayetano@gmail.com\",\r\n    \"telefono\": \"3120116711\",\r\n    \"fechaNac\": \"2003-05-12T00:00:00.000+00:00\",\r\n    \"edad\": null,\r\n    \"sexo\": null,\r\n    \"password\":\"cali\",\r\n    \"direccion\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/user/",
+					"raw": "http://localhost:8086/user/cambiar-estado?cedula=0122324784",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8086",
+					"path": [
+						"user",
+						"cambiar-estado"
+					],
+					"query": [
+						{
+							"key": "cedula",
+							"value": "0122324784"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los usuarios Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8086/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8086",
 					"path": [
 						"user",
 						""
